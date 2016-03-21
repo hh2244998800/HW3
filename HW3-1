@@ -1,0 +1,57 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package week3_1;
+import java.io.*;
+import java.util.*;
+/**
+ *
+ * @author 靖旻
+ */
+public class Week3_1 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        String a;
+        
+        
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("請輸入一行英文句子: ");
+        a = scanner.nextLine();
+        //String[] token = a.split("!|]|[|,|;|\\.|\\n|\\s|\\t");
+        String[] token = a.split("\\.|/|,|;|\\?|\\'|:|\\[|\\]|\\{|\\}|=|!| ");
+
+        System.out.print(token.length);
+        String[] num = new String[token.length];
+        int[] value = new int[token.length];
+        int j=0;
+        
+        
+        for(int i=0 ; i<token.length ; i++)
+        {
+            token[i] = token[i].toLowerCase();
+            System.out.print(token[i]+" ");
+            
+
+            try {
+                value[j++] = Integer.parseInt(token[i]);
+            }
+            catch(NumberFormatException e){
+                
+            }
+             
+        }
+        System.out.print("\n");
+        int sum=0;
+        for (int i=0 ; i<j ; i++)
+        {
+            sum += value[i];
+        }
+        System.out.print("Sum = "+sum);
+    }
+    
+}
