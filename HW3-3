@@ -1,0 +1,106 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package week3_3;
+import java.io.*;
+import java.util.*;
+/**
+ *
+ * @author 靖旻
+ */
+public class Week3_3 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args)throws IOException {
+        // TODO code application logic here
+        Scanner scanner = new Scanner(System.in);
+
+        int option, check=0, mapcount=0;
+        HashMap map = new HashMap();
+        String a;
+        
+        FileReader fr = new FileReader("1.txt");//讀檔
+        BufferedReader br = new BufferedReader(fr);
+        while (br.ready()) 
+        {
+            String temp = br.readLine();
+            map.put(temp, br.readLine());
+            check++;
+            mapcount++;
+        }
+        fr.close();
+        
+        while (true)
+        {
+            System.out.print("Option 1)Input 2)Output 3)Output to file -1)break");
+            option = Integer.parseInt(scanner.nextLine());
+            if (option == 1)
+            {
+                System.out.print("請輸入一行英文句子: ");
+                a = scanner.nextLine();
+                String[] token = a.split("\\.|/|,|;|\\?|\\'|:|\\[|\\]|\\{|\\}|=|!| ");
+                for (int i=0 ; i<token.length ; i++)
+                {
+                    token[i] = token[i].toLowerCase();
+                    if (check != 0)
+                    {
+                        int temp=0, count=0;
+                        for (Object key : map.keySet())
+                        {
+                            if (token[i].compareTo((String)key) == 0)//找到相符的資料
+                            {
+                                temp = (int)map.get(key);
+                                map.put(token[i],++temp);
+                                break;
+                            }
+                            else 
+                                count++;
+                        }
+                        if (count == mapcount)//沒有相符的資料
+                        {
+                            map.put(token[i],1);
+                            mapcount++;
+                        }
+                    }
+                    else 
+                    {
+                        map.put(token[i],1);
+                        mapcount++;
+                    }
+                }
+                check++;
+            }
+            else if (option == 2)
+            {
+                String temp;
+                
+                System.out.print("請輸入欲搜尋的字符: ");
+                temp = scanner.next();
+                
+                for (Object key : map.keySet())
+                {
+                    if (temp.compareTo((String)key) == 0)
+                    {
+                        System.out.println((String)key + "共有"+ map.get(key) + "個");
+                        break;
+                    }
+                }
+            }
+            else if (option == 3)//寫檔
+            {
+                FileWriter fw = new FileWriter("1.txt",true);
+                for (Object key : map.keySet())
+                    fw.write(key + "\n" + map.get(key) + "\n");
+                fw.flush();
+                fw.close();
+            }
+            else if (option == -1)
+                break;
+        }
+    }
+    
+}
