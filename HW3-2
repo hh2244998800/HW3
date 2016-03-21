@@ -1,0 +1,71 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package week3_2;
+import java.io.*;
+import java.util.*;
+
+/**
+ *
+ * @author 靖旻
+ */
+public class Week3_2 {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+        // TODO code application logic here
+        Scanner scanner = new Scanner(System.in);
+        HashMap map = new HashMap();
+        int option=0, option2=0;
+        
+        while(true)
+        {
+            System.out.print("Option: 1)input 2)check -1)break");
+            option = scanner.nextInt();
+            if (option == 1)
+            {
+                String tempN;
+                int tempG;
+                while(true)
+                {
+                    System.out.print("請輸入編號學生姓名(-1:break): ");
+                    tempN = scanner.next();
+                    if (tempN.compareTo("-1") == 0)
+                        break;
+                    System.out.print("請輸入編號學生成績: ");
+                    tempG = scanner.nextInt();
+                    
+                    System.out.print("確定輸入"+tempN+" "+tempG+"? 1)Yes 2)No: ");
+                    option2 = scanner.nextInt();
+                    if (option2 == 1)
+                        map.put(tempN,tempG);
+                }
+            }
+            else if (option == 2)
+            {
+                String temp, temp2;
+                int i=0;
+                while (true)
+                {
+                    System.out.print("請輸入學生姓名(-1:break): ");
+                    temp = scanner.next();
+                    if (temp.compareTo("-1") == 0)
+                        break;
+                    for (Object key : map.keySet())
+                    {
+                        temp2 = (String)key;
+                        if (temp.compareTo(temp2) == 0)
+                            System.out.println("學生姓名:"+temp2+" 成績:"+map.get(key));
+                    }
+                }
+            }
+            else if (option == -1)
+                break;
+        } 
+    }
+    
+}
